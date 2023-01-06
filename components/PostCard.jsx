@@ -2,6 +2,7 @@ import react from "react";
 import Logo from '../static/qazi.jpg'
 import Image from "next/image";
 import { FiBookmark } from 'react-icons/fi'
+import Link from "next/link";
 
 const styles = {
     authorContainer: 'flex gap-[.4rem]',
@@ -20,44 +21,46 @@ const styles = {
 
 const PostCard = () => {
     return (
-        <div className={styles.wrapper}>
-            <div className={styles.postDetails}>
-                <div className={styles.authorContainer}>
-                    <div className={styles.authorImageContainer}>
-                        <Image
-                            src={Logo}
-                            className={styles.authorImage}
-                            width={40}
-                            height={40}
-                            alt='author-image'
-                        />
+        <Link href={`/post/123`}>
+            <div className={styles.wrapper}>
+                <div className={styles.postDetails}>
+                    <div className={styles.authorContainer}>
+                        <div className={styles.authorImageContainer}>
+                            <Image
+                                src={Logo}
+                                className={styles.authorImage}
+                                width={40}
+                                height={40}
+                                alt='author-image'
+                            />
+                        </div>
+
+                        <div className={styles.authorName}>
+                            Asish Mahapatra
+                        </div>
                     </div>
 
-                    <div className={styles.authorName}>
-                        Asish Mahapatra
+                    <h1 className={styles.title}>7 Free Tools That Will Make You More Productive In 2022</h1>
+                    <div className={styles.briefing}>Productivity is skill that can be learned.</div>
+
+                    <div className={styles.detailsContainer}>
+                        <span className={styles.articleDetails}>Jun 15 • 5 min read • <span className={styles.category}>productivity</span></span>
+                        <span className={styles.bookmarkContainer}>
+                            <FiBookmark className="h-5 w-5" />
+                        </span>
                     </div>
                 </div>
 
-                <h1 className={styles.title}>7 Free Tools That Will Make You More Productive In 2022</h1>
-                <div className={styles.briefing}>Productivity is skill that can be learned.</div>
-
-                <div className={styles.detailsContainer}>
-                    <span className={styles.articleDetails}>Jun 15 • 5 min read • <span className={styles.category}>productivity</span></span>
-                    <span className={styles.bookmarkContainer}>
-                        <FiBookmark className="h-5 w-5" />
-                    </span>
+                <div className={styles.thumbnailContainer}>
+                    <Image
+                        src={Logo}
+                        height={100}
+                        width={100}
+                        alt='thumbnail'
+                    />
                 </div>
             </div>
-
-            <div className={styles.thumbnailContainer}>
-                <Image
-                    src={Logo}
-                    height={100}
-                    width={100}
-                    alt='thumbnail'
-                />
-            </div>
-        </div>
+        </Link>
     )
 }
 
