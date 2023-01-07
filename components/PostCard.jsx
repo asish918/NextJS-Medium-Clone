@@ -1,5 +1,5 @@
 import react from "react";
-import Logo from '../static/qazi.jpg'
+import Logo from '../public/static/qazi.jpg'
 import Image from "next/image";
 import { FiBookmark } from 'react-icons/fi'
 import Link from "next/link";

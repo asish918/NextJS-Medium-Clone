@@ -1,6 +1,6 @@
 import Image from "next/image";
 import react from "react";
-import Logo from '../static/banner.png'
+import Logo from '../public/static/banner.png'
 
 const styles = {
     content: 'max-w-7xl flex items-center justify-between',
