@@ -79,7 +79,7 @@ const ArticleMain = () => {
                         <div>
                             Asish Mahapatra, Jan 15 2023
                         </div>
-                        <div>Brief: Productivity is a skill that can be learned.</div>
+                        <div>Productivity is a skill that can be learned.</div>
                     </h4>
                     <div className={styles.articleText}>
                         I love being productive every day as it helps me sort out all my
