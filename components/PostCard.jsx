@@ -1,8 +1,10 @@
-import react from "react";
+import { useState, useEffect } from "react";
 import Logo from '../public/static/qazi.jpg'
 import Image from "next/image";
 import { FiBookmark } from 'react-icons/fi'
 import Link from "next/link";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../firebase";
 
 const styles = {
     authorContainer: 'flex gap-[.4rem]',
@@ -16,18 +18,33 @@ const styles = {
     articleDetails: 'my-2 text-[0.8rem]',
     category: 'bg-[#F2F3F2] p-1 rounded-full',
     bookmarkContainer: 'cursor-pointer',
-    wrapper: 'flex max-w-[46rem] h-[10rem] items-center gap-[1rem] cursor-pointer'
+    wrapper: 'flex max-w-[46rem] h-[10rem] items-center gap-[1rem] cursor-pointer',
+    thumbnailContainer: 'flex-1'
 }
 
-const PostCard = () => {
+const PostCard = ({ post }) => {
+    const [authorData, setAuthorData] = useState(null);
+
+    useEffect(() => {
+        const getAuthorData = async () => {
+            setAuthorData(
+                await getDoc(doc(db, 'user', post.data.author))
+            )
+
+            console.log(authorData);
+        }
+
+        getAuthorData();
+    }, [post])
+
     return (
-        <Link href={`/post/123`}>
+        <Link href={`/post/${post.id}`}>
             <div className={styles.wrapper}>
                 <div className={styles.postDetails}>
                     <div className={styles.authorContainer}>
                         <div className={styles.authorImageContainer}>
                             <Image
-                                src={Logo}
+                                src={post.data.bannerImage}
                                 className={styles.authorImage}
                                 width={40}
                                 height={40}
@@ -36,15 +53,18 @@ const PostCard = () => {
                         </div>
 
                         <div className={styles.authorName}>
-                            Asish Mahapatra
+                            {post.data.author}
                         </div>
                     </div>
 
-                    <h1 className={styles.title}>7 Free Tools That Will Make You More Productive In 2022</h1>
-                    <div className={styles.briefing}>Productivity is skill that can be learned.</div>
+                    <h1 className={styles.title}>{post.data.title}</h1>
+                    <div className={styles.briefing}>{post.data.brief}</div>
 
                     <div className={styles.detailsContainer}>
-                        <span className={styles.articleDetails}>Jun 15 • 5 min read • <span className={styles.category}>productivity</span></span>
+                        <span className={styles.articleDetails}>{new Date(post.data.postedOn).toLocaleString('en-US', {
+                            day: 'numeric',
+                            month: 'short'
+                        })} • {post.data.postLength} min read • <span className={styles.category}>{post.data.category}</span></span>
                         <span className={styles.bookmarkContainer}>
                             <FiBookmark className="h-5 w-5" />
                         </span>
@@ -53,7 +73,7 @@ const PostCard = () => {
 
                 <div className={styles.thumbnailContainer}>
                     <Image
-                        src={Logo}
+                        src={post.data.bannerImage}
                         height={100}
                         width={100}
                         alt='thumbnail'
