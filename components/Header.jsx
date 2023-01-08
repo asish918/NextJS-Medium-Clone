@@ -1,6 +1,7 @@
-import react from "react";
+import { useContext } from "react";
 import Image from "next/image";
 import Logo from '../public/static/logo.png'
+import { MediumContext } from "../context/MediumContext";
 
 const Header = () => {
     const styles = {
@@ -11,6 +12,8 @@ const Header = () => {
         bannerNav: 'flex cursor-pointer items-center space-x-5',
         accentedButton: 'bg-black text-white py-2 px-4 rounded-full'
     }
+
+    const { handleUserAuth } = useContext(MediumContext)
 
     return (
         <div className={styles.wrapper}>
@@ -28,7 +31,7 @@ const Header = () => {
                 <div className={styles.bannerNav}>
                     <div>Our Story</div>
                     <div>Our Membership</div>
-                    <div>Sign In</div>
+                    <div onClick={handleUserAuth}>Sign In</div>
                     <div className={styles.accentedButton}>Get Started</div>
                 </div>
             </div>
