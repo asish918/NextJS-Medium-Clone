@@ -1,4 +1,7 @@
-import react from "react";
+import {useContext, useState} from "react";
+import { MediumContext } from "../context/MediumContext";
+import { collection, serverTimestamp, addDoc } from "firebase/firestore";
+import { db } from "../firebase";
 
 const styles = {
     wrapper: 'w-[70rem] h-[50rem] flex flex-col justify-start items-center gap-[1rem] p-[1rem] font-mediumSerif overflow-scroll',
@@ -6,10 +9,35 @@ const styles = {
     smallField: 'w-full flex justify-between gap-[1rem]',
     fieldTitle: 'flex-1 text-end',
     inputContainer: 'flex-[5] h-min border-2 border-[#787878] rounded-lg',
-    inputField: 'w-full border-0 outline-none bg-transparent'
+    inputField: 'w-full border-0 outline-none bg-transparent',
+    accentedButton: 'bg-black text-white py-2 px-4 rounded-full'
 }
 
 const PostModal = () => {
+    const {currentUser} = useContext(MediumContext)
+    const [title, setTitle] = useState('')
+    const [brief, setBrief] = useState('')
+    const [category, setCategory] = useState('')
+    const [postLength, setPostLength] = useState('')
+    const [bannerImage, setBannerImage] = useState('')
+    const [body, setBody] = useState('')
+
+    const addPostToFirebase = async (event) => {
+        event.preventDefault();
+
+        await addDoc(collection(db, 'articles'), {
+            bannerImage,
+            body,
+            category, 
+            postLength,
+            brief,
+            title,
+            author: currentUser.name,
+            authorEmail: currentUser.email,
+            postedOn: serverTimestamp()
+        })
+    }
+
     return (
         <div className={styles.wrapper}>
             <div className={styles.title}>Create a New Post</div>
@@ -19,7 +47,8 @@ const PostModal = () => {
                     <input
                         className={styles.inputField}
                         type="text"
-                    // value={title} 
+                        value={title} 
+                        onChange={event => setTitle(event.target.value)}
                     />
                 </span>
             </div>
@@ -29,7 +58,8 @@ const PostModal = () => {
                     <input
                         className={styles.inputField}
                         type="text"
-                    // value={title} 
+                        value={brief}
+                        onChange={event => setBrief(event.target.value)}
                     />
                 </span>
             </div>
@@ -39,7 +69,8 @@ const PostModal = () => {
                     <input
                         className={styles.inputField}
                         type="text"
-                    // value={title} 
+                        value={bannerImage}
+                        onChange={event => setBannerImage(event.target.value)}
                     />
                 </span>
             </div>
@@ -49,7 +80,8 @@ const PostModal = () => {
                     <input
                         className={styles.inputField}
                         type="text"
-                    // value={title} 
+                        value={category}
+                        onChange={event => setCategory(event.target.value)}
                     />
                 </span>
             </div>
@@ -59,7 +91,8 @@ const PostModal = () => {
                     <input
                         className={styles.inputField}
                         type="text"
-                    // value={title} 
+                        value={postLength}
+                        onChange={event => setPostLength(event.target.value)}
                     />
                 </span>
             </div>
@@ -70,10 +103,13 @@ const PostModal = () => {
                         className={styles.inputField}
                         type="text"
                         rows={12}
-                    // value={title} 
+                        value={body}
+                        onChange={event => setBody(event.target.value)}
                     />
                 </span>
             </div>
+
+            <button className={styles.accentedButton} onClick={addPostToFirebase}>Submit</button>
         </div>
     )
 }
