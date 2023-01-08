@@ -23,19 +23,20 @@ const styles = {
 }
 
 const PostCard = ({ post }) => {
-    const [authorData, setAuthorData] = useState(null);
+    const [authorData, setAuthorData] = useState({});
 
     useEffect(() => {
         const getAuthorData = async () => {
-            setAuthorData(
-                await getDoc(doc(db, 'user', post.data.author))
+            setAuthorData({
+                ... await (await getDoc(doc(db, 'user', post.data.authorEmail)))._document.data.value.mapValue.fields
+            }
             )
-
-            console.log(authorData);
         }
 
+        console.log(authorData);
+
         getAuthorData();
-    }, [post])
+    }, [])
 
     return (
         <Link href={`/post/${post.id}`}>
@@ -44,7 +45,8 @@ const PostCard = ({ post }) => {
                     <div className={styles.authorContainer}>
                         <div className={styles.authorImageContainer}>
                             <Image
-                                src={post.data.bannerImage}
+                                // src="https://picsum.photos/200/300"
+                                src={authorData.imageurl.stringValue}
                                 className={styles.authorImage}
                                 width={40}
                                 height={40}

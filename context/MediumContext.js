@@ -37,6 +37,7 @@ const MediumProvider = ({ children }) => {
                     id: doc.id,
                     data: {
                         author: doc._document.data.value.mapValue.fields.author.stringValue,
+                        authorEmail: doc._document.data.value.mapValue.fields.authorEmail.stringValue,
                         bannerImage: doc._document.data.value.mapValue.fields.bannerImage.stringValue,
                         body: doc._document.data.value.mapValue.fields.body.stringValue,
                         brief: doc._document.data.value.mapValue.fields.brief.stringValue,
