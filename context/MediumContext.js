@@ -8,7 +8,7 @@ const MediumContext = createContext()
 const MediumProvider = ({ children }) => {
     const [users, setUsers] = useState([]);
     const [posts, setPosts] = useState([]);
-    const [currentUser, setCurrentUser] = useState({});
+    const [currentUser, setCurrentUser] = useState(null);
 
     useEffect(() => {
         const getUsers = async () => {
