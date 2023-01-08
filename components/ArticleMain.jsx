@@ -28,7 +28,7 @@ const styles = {
     articleText: 'font-mediumSerif text-[1.4rem] text-[#292929]'
 }
 
-const ArticleMain = () => {
+const ArticleMain = ({ post, author }) => {
     return (
         <div className={styles.wrapper}>
             <div className={styles.content}>
@@ -44,9 +44,12 @@ const ArticleMain = () => {
                             />
                         </div>
                         <div className={styles.column}>
-                            <div>Asish Mahapatra</div>
+                            <div>{author?.data?.name}</div>
                             <div className={styles.postDetails}>
-                                <span>Jan 7 • 7 min read • </span>
+                                <span>{new Date(post.data?.postedOn).toLocaleString('en-US', {
+                                    day: 'numeric',
+                                    month: 'short'
+                                })} • {post.data?.postLength} min read • </span>
                                 <span className={styles.listenButton}>
                                     <AiFillPlayCircle /> Listen
                                 </span>
@@ -74,20 +77,20 @@ const ArticleMain = () => {
                         />
                     </div>
 
-                    <h1 className={styles.title}>7 Tricks That Will Make You More Productive In 2023</h1>
+                    <h1 className={styles.title}>{post?.data?.title}</h1>
                     <h4 className={styles.subtitle}>
                         <div>
-                            Asish Mahapatra, Jan 15 2023
+                            {author?.data?.name},{' '}
+                            {new Date(post.data?.postedOn).toLocaleString('en-US', {
+                                day: 'numeric',
+                                month: 'short',
+                                year: 'numeric'
+                            })}
                         </div>
-                        <div>Productivity is a skill that can be learned.</div>
+                        <div>{post?.data?.brief}</div>
                     </h4>
                     <div className={styles.articleText}>
-                        I love being productive every day as it helps me sort out all my
-                        priorities very quickly. Being Productive is a superpower we all must acquire early in our lives.
-                        So, for this same quest, I keep searching for some of the best Productive tools
-                        that will help me to stay productive all day long. So, here I have curated some of the best
-                        Productive Tools that will also make you more productive so that you can achieve most of the day very easily.
-                        Let&apos;s get started.
+                        {post?.data?.body}
                     </div>
                 </div>
             </div>
