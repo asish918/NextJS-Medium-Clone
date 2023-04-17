@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import Logo from '../public/static/qazi.jpg'
 import Image from "next/image";
 import { FiBookmark } from 'react-icons/fi'
 import Link from "next/link";
@@ -18,8 +17,8 @@ const styles = {
     articleDetails: 'my-2 text-[0.8rem]',
     category: 'bg-[#F2F3F2] p-1 rounded-full',
     bookmarkContainer: 'cursor-pointer',
-    wrapper: 'flex max-w-[46rem] h-[10rem] items-center gap-[1rem] cursor-pointer',
-    thumbnailContainer: 'flex-1'
+    wrapper: 'flex max-w-[30rem] h-[10rem] items-center gap-[1rem] cursor-pointer justify-between',
+    thumbnailContainer: 'flex'
 }
 
 const PostCard = ({ post }) => {
@@ -29,7 +28,7 @@ const PostCard = ({ post }) => {
         const getAuthorData = async () => {
             const data = await getDoc(doc(db, 'user', post.data.authorEmail))
             setAuthorData({
-                ... data._document.data.value.mapValue.fields
+                ...data._document.data.value.mapValue.fields
             });
         }
 

@@ -8,6 +8,8 @@ import { BsPencilSquare } from 'react-icons/bs'
 import Logo from '../public/static/qazi.jpg'
 import Image from "next/image";
 import Link from "next/link";
+import { MediumContext } from '../context/MediumContext'
+import { useContext } from 'react'
 
 const styles = {
     logoContainer: 'cursor-pointer',
@@ -19,6 +21,8 @@ const styles = {
 }
 
 const ReadersNav = () => {
+    const { currentUser } = useContext(MediumContext);
+    console.log(currentUser);
     return (
         <>
             <div className={styles.wrapper}>
@@ -43,8 +47,10 @@ const ReadersNav = () => {
                 <div className={styles.profileImageContainer}>
                     <Image
                         className={styles.profileImage}
-                        src={Logo}
+                        src={currentUser?.imageUrl || "https://picsum.photos/200/200"}
                         alt='profile-img'
+                        width={200}
+                        height={200}
                     />
                 </div>
             </div>

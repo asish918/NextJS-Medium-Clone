@@ -31,7 +31,7 @@ const Post = () => {
         <div className={styles.content}>
             <ReadersNav />
             <ArticleMain post={post} author={author} />
-            <Recommendations />
+            <Recommendations author={author} />
         </div>
     )
 }

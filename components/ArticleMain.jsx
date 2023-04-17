@@ -29,6 +29,7 @@ const styles = {
 }
 
 const ArticleMain = ({ post, author }) => {
+
     return (
         <div className={styles.wrapper}>
             <div className={styles.content}>
@@ -36,7 +37,7 @@ const ArticleMain = ({ post, author }) => {
                     <div className={styles.authorContainer}>
                         <div className={styles.authorProfileImageContainer}>
                             <Image
-                                src={Logo}
+                                src={author?.data?.imageurl}
                                 className='object-cover'
                                 height={100}
                                 width={100}
@@ -72,8 +73,10 @@ const ArticleMain = ({ post, author }) => {
                     <div className={styles.bannerContainer}>
                         <Image
                             className={styles.image}
-                            src={Banner}
+                            src={post?.data?.bannerImage}
                             alt='bannerimg'
+                            width={1039}
+                            height={288}
                         />
                     </div>
 
